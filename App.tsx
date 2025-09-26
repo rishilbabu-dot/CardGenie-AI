@@ -188,6 +188,12 @@ function AppContent() {
 
       <footer className="py-8 text-center relative z-10">
         <p className="text-sm text-gray-500 dark:text-gray-400">&copy; {new Date().getFullYear()} CardGenie. All rights reserved.</p>
+        <a 
+            href="mailto:rishilbabu@gmail.com"
+            className="mt-4 inline-block bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-medium py-2 px-5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-sm"
+        >
+            Contact Us
+        </a>
       </footer>
     </div>
   );

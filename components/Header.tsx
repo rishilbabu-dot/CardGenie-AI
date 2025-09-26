@@ -11,9 +11,12 @@ export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text bg-[length:200%_auto] animate-gradient">
-                CardGenie AI
-            </span>
+              <div className="relative inline-block overflow-hidden">
+                <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text bg-[length:200%_auto] animate-gradient">
+                    CardGenie AI
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 dark:via-white/20 to-transparent animate-shimmer transform -skew-x-12"></div>
+              </div>
             </h1>
             <p className="text-sm text-blue-800 dark:text-blue-300">Your Personal AI Credit Card Assistant</p>
         </div>
