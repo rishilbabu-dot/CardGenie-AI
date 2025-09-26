@@ -7,20 +7,20 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ theme, toggleTheme }) => {
   return (
-    <header className="bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 dark:from-blue-900 dark:via-gray-900 dark:to-black text-white shadow-md sticky top-0 z-50">
+    <header className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-xl text-white shadow-sm fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <div>
             <h1 className="text-2xl md:text-3xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-blue-300 via-purple-400 to-pink-400 text-transparent bg-clip-text bg-[length:200%_auto] animate-gradient">
+            <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text bg-[length:200%_auto] animate-gradient">
                 CardGenie AI
             </span>
             </h1>
-            <p className="text-sm text-blue-200 dark:text-blue-300">Your Personal AI Credit Card Assistant</p>
+            <p className="text-sm text-blue-800 dark:text-blue-300">Your Personal AI Credit Card Assistant</p>
         </div>
         <button
           onClick={toggleTheme}
           aria-label="Toggle theme"
-          className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
+          className="p-2 rounded-full bg-gray-500/20 hover:bg-gray-500/30 text-gray-800 dark:text-gray-200 transition-colors"
         >
           {theme === 'light' ? (
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

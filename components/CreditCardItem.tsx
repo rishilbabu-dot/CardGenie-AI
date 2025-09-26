@@ -16,21 +16,19 @@ const Tag: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 export const CreditCardItem: React.FC<CreditCardItemProps> = ({ card, isSelected, isCompareDisabled, onToggleCompare }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col transition-transform transform hover:-translate-y-2 hover:shadow-2xl">
-      <div className="p-5">
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden flex flex-col transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl hover:ring-2 hover:ring-blue-500/50 dark:hover:ring-blue-400/50">
+      <div className="p-5 flex-grow">
         <h3 className="text-lg font-bold text-gray-900 dark:text-white">{card.name}</h3>
         <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">{card.bank}</p>
         <div className="flex flex-wrap gap-1 mb-4">
           {card.bestFor.slice(0, 3).map(tag => <Tag key={tag}>{tag}</Tag>)}
         </div>
-      </div>
-      <div className="px-5 pb-5 mt-auto">
-        <ul className="text-sm space-y-2 text-gray-600 dark:text-gray-300 mb-5">
+         <ul className="text-sm space-y-2 text-gray-600 dark:text-gray-300">
           <li><strong>Joining Fee:</strong> ₹{card.joiningFee.toLocaleString('en-IN')}</li>
           <li><strong>Annual Fee:</strong> ₹{card.annualFee.toLocaleString('en-IN')}</li>
-          <li><strong>Fee Waiver:</strong> {card.feeWaiver}</li>
-          <li><strong>Bonus:</strong> {card.welcomeBonus}</li>
         </ul>
+      </div>
+      <div className="px-5 pb-5 mt-auto bg-gray-50 dark:bg-gray-800/50 pt-4">
         <div className="flex items-center gap-2">
            <button
             onClick={() => onToggleCompare(card)}
@@ -44,7 +42,7 @@ export const CreditCardItem: React.FC<CreditCardItemProps> = ({ card, isSelected
             }`}
             title={isCompareDisabled ? "You can compare up to 4 cards at a time." : ""}
           >
-            {isSelected ? '✓ Selected' : '+ Compare'}
+            {isSelected ? '✓ Added' : '+ Compare'}
           </button>
           <a
             href={card.officialUrl}
@@ -52,7 +50,7 @@ export const CreditCardItem: React.FC<CreditCardItemProps> = ({ card, isSelected
             rel="noopener noreferrer"
             className="block w-full text-center bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors shadow"
           >
-            Apply Now
+            Details
           </a>
         </div>
       </div>

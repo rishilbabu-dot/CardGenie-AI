@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo, useRef, createContext, useContext, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -61,6 +60,14 @@ const useTheme = () => {
   }
   return context;
 };
+
+const AnimatedBackground = () => (
+    <div className="fixed inset-0 -z-10 overflow-hidden">
+      <div className="absolute top-0 -left-4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-float dark:opacity-20"></div>
+      <div className="absolute top-0 -right-4 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-float animation-delay-2000 dark:opacity-20"></div>
+      <div className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-float animation-delay-4000 dark:opacity-20"></div>
+    </div>
+)
 
 function AppContent() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -141,9 +148,10 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-200 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans text-gray-800 dark:text-gray-200 transition-colors duration-300 relative">
+      <AnimatedBackground />
       <Header theme={theme} toggleTheme={toggleTheme} />
-      <main>
+      <main className="relative z-10">
         <Hero onStart={handleStartComparison} onExplore={scrollToDirectory} />
         
         <div ref={comparisonRef}>
@@ -178,9 +186,8 @@ function AppContent() {
         onClear={handleClearComparison}
       />
 
-      <footer className="bg-gray-800 dark:bg-black text-white py-8 text-center">
-        <p>&copy; {new Date().getFullYear()} CardGenie. All rights reserved.</p>
-        <p className="text-sm text-gray-400 mt-2">Created by Rishil and made with ❤️ in India </p>
+      <footer className="py-8 text-center relative z-10">
+        <p className="text-sm text-gray-500 dark:text-gray-400">&copy; {new Date().getFullYear()} CardGenie. All rights reserved.</p>
       </footer>
     </div>
   );

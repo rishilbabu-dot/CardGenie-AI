@@ -21,7 +21,7 @@ const LoadingSkeleton: React.FC = () => (
     <div>
       <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded-md w-3/4 mb-2"></div>
       <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded-md w-1/2 mb-6"></div>
-      <div className="h-10 bg-blue-100 dark:bg-blue-900 rounded-full w-24 mb-6"></div>
+      <div className="w-24 h-24 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto mb-6"></div>
       <div className="space-y-3">
         <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded"></div>
         <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
@@ -67,12 +67,12 @@ export const ComparisonView: React.FC<ComparisonViewProps> = ({ aiCards, isLoadi
   ];
   
   return (
-    <section className="py-16 bg-white dark:bg-gray-900 transition-colors duration-300">
+    <section className="py-16">
       {hasAiContent && (
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100">Your AI-Powered Recommendations</h2>
-            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Here are the top 3 cards we think you'll love.</p>
+            <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">Here are the top 3 cards our AI thinks you'll love.</p>
           </div>
           
           {isLoading && (
@@ -95,45 +95,41 @@ export const ComparisonView: React.FC<ComparisonViewProps> = ({ aiCards, isLoadi
               {aiCards.map((card, index) => (
                 <div
                   key={card.id}
-                  className={`bg-white dark:bg-gray-800 rounded-2xl shadow-xl border-2 flex flex-col transition-all duration-300 transform hover:-translate-y-2 ${
-                    index === 0 ? 'border-amber-400' : 'border-gray-200 dark:border-gray-700'
+                  className={`relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl border flex flex-col transition-all duration-300 transform hover:-translate-y-2 ${
+                    index === 0 ? 'border-amber-400/50' : 'border-gray-200 dark:border-gray-700'
                   }`}
                 >
-                  {/* Scrollable content area */}
-                  <div className="p-6 flex-1 min-h-0 overflow-y-auto">
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">{card.name}</h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{card.bank}</p>
-                      </div>
-                      <div className="text-right flex-shrink-0 ml-4">
-                        <p className="text-3xl font-bold text-blue-600">{card.score}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 font-medium leading-tight">MATCH<br/>SCORE</p>
-                      </div>
+                  {index === 0 && <div className="absolute -inset-1 bg-gradient-to-r from-amber-400 to-orange-500 rounded-2xl blur opacity-25"></div>}
+                  <div className="relative p-6 flex-1 flex flex-col">
+                    <div className="text-center mb-4">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{card.name}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{card.bank}</p>
+                       {index === 0 && (
+                        <div className="mt-2">
+                          <span className="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-sm font-bold px-4 py-1 rounded-full inline-flex items-center gap-1">
+                            <StarIcon className="w-4 h-4" /> Top Match
+                          </span>
+                        </div>
+                      )}
                     </div>
-                     {index === 0 && (
-                      <div className="text-left mb-4">
-                        <span className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-300 text-sm font-bold px-4 py-1 rounded-full inline-flex items-center gap-1">
-                          <StarIcon className="w-4 h-4" /> Top Match
-                        </span>
-                      </div>
-                    )}
                     
-                    <div className="my-6">
+                    <div className="my-6 mx-auto w-24 h-24 rounded-full flex flex-col items-center justify-center bg-blue-50 dark:bg-blue-900/50 border-2 border-blue-200 dark:border-blue-700">
+                      <p className="text-4xl font-bold text-blue-600 dark:text-blue-400">{card.score}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 font-medium leading-tight">SCORE</p>
+                    </div>
+
+                    <div className="my-4">
                       <h4 className="font-semibold text-gray-700 dark:text-gray-300 mb-2">AI Reasoning:</h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 p-3 rounded-lg">{card.reasoning}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 p-3 rounded-lg h-24 overflow-y-auto">{card.reasoning}</p>
                     </div>
                     
                     <ul className="text-sm space-y-3 text-gray-600 dark:text-gray-300">
                         <li className="flex justify-between items-center"><span className="font-semibold text-gray-800 dark:text-gray-100">Joining Fee:</span> <span>₹{card.joiningFee.toLocaleString('en-IN')}</span></li>
                         <li className="flex justify-between items-center"><span className="font-semibold text-gray-800 dark:text-gray-100">Annual Fee:</span> <span>₹{card.annualFee.toLocaleString('en-IN')}</span></li>
-                        <li className="pt-2"><span className="font-semibold text-gray-800 dark:text-gray-100 block mb-1">Fee Waiver:</span> <span className="text-xs">{card.feeWaiver}</span></li>
-                        <li className="pt-2"><span className="font-semibold text-gray-800 dark:text-gray-100 block mb-1">Bonus:</span> <span className="text-xs">{card.welcomeBonus}</span></li>
                     </ul>
                   </div>
                   
-                  {/* Action button at the bottom */}
-                  <div className="p-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+                  <div className="relative p-6 pt-4 mt-auto border-t border-gray-100 dark:border-gray-700">
                     <a
                       href={card.officialUrl}
                       target="_blank"
@@ -167,7 +163,7 @@ export const ComparisonView: React.FC<ComparisonViewProps> = ({ aiCards, isLoadi
           
           <div className={`grid grid-cols-1 sm:grid-cols-2 ${getGridColsClass(manualCards.length)} gap-6`}>
             {manualCards.map(card => (
-              <div key={card.id} className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 flex flex-col">
+              <div key={card.id} className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700 rounded-xl p-4 sm:p-6 flex flex-col">
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{card.name}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{card.bank}</p>
                 <div className="space-y-4 my-4 text-sm sm:text-base">

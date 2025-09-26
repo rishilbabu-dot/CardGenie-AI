@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import type { UserProfile } from '../types';
 
@@ -9,7 +8,7 @@ interface AIAssistantModalProps {
 }
 
 const spendingOptions = ['Shopping', 'Fuel', 'Travel', 'Dining', 'Online', 'Bills'];
-const preferenceOptions = ['Cashback', 'Rewards', 'Lounge Access', 'EMI'];
+const preferenceOptions = ['Cashback', 'Rewards', 'Lounge Access', 'EMI', 'No Annual Fee', 'Low Interest'];
 
 export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onClose, onSubmit }) => {
   const [monthlyIncome, setMonthlyIncome] = useState<string>('');
@@ -42,8 +41,8 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 dark:bg-opacity-80 z-50 flex justify-center items-center p-4" onClick={onClose}>
-      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl transform transition-all" onClick={e => e.stopPropagation()}>
+    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex justify-center items-center p-4" onClick={onClose}>
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-2xl transform transition-all border border-gray-200 dark:border-gray-700" onClick={e => e.stopPropagation()}>
         <form onSubmit={handleSubmit}>
           <div className="px-8 py-6">
             <div className="flex justify-between items-start">
@@ -51,7 +50,11 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-white">AI Assistant</h2>
                     <p className="text-gray-500 dark:text-gray-400 mt-1">Tell us about yourself to get personalized recommendations.</p>
                 </div>
-                <button type="button" onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">&times;</button>
+                <button type="button" onClick={onClose} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
             </div>
             
             <div className="mt-6 space-y-6">
@@ -64,7 +67,7 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
                   id="income"
                   value={monthlyIncome}
                   onChange={e => setMonthlyIncome(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white transition"
                   placeholder="e.g., 75000"
                   required
                 />
@@ -87,7 +90,7 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
               
               <div>
                 <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">What benefits are you looking for?</h3>
-                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
+                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-2">
                   {preferenceOptions.map(option => (
                     <CheckboxPill
                       key={option}
@@ -105,7 +108,7 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
           <div className="bg-gray-50 dark:bg-gray-900/50 px-8 py-4 rounded-b-2xl">
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-md hover:bg-blue-700 transition-all transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300"
             >
               Find My Perfect Card
             </button>
@@ -128,7 +131,7 @@ const CheckboxPill: React.FC<CheckboxPillProps> = ({ id, label, checked, onChang
     return (
         <div>
             <input type="checkbox" id={id} checked={checked} onChange={onChange} className="hidden" />
-            <label htmlFor={id} className={`block text-center text-sm font-medium py-2 px-3 rounded-full cursor-pointer transition-colors ${checked ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>
+            <label htmlFor={id} className={`block text-center text-sm font-medium py-2 px-3 rounded-full cursor-pointer transition-all ${checked ? 'bg-blue-600 text-white shadow-sm ring-2 ring-blue-400' : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'}`}>
                 {label}
             </label>
         </div>
